@@ -3,10 +3,7 @@ package com.example.demo.model;
 import com.example.demo.model.auth.AppUser;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Profile {
@@ -24,8 +21,16 @@ public class Profile {
     private String birthDate = "DD/MM/YYYY";
     private String bio = "Thrive and strive";
 
-    @OneToMany(mappedBy = "profile")
-    private Set<Interest> interests;
+    //interests here
+    private String freeTextOfInterests;
+    private boolean business = false;
+    private boolean entertainment = false;
+    private boolean general = false;
+    private boolean health = false;
+    private boolean science = false;
+    private boolean sports = false;
+    private boolean technology = false;
+    private ArrayList<String> categories;
 
     @OneToMany(mappedBy = "profile")
     private Set<Friend> friends;
@@ -43,9 +48,9 @@ public class Profile {
 
 
     public Profile() {
-        this.interests = new HashSet<>();
         this.friends = new HashSet<>();
         this.post = new HashSet<>();
+        this.categories = new ArrayList<>();
     }
 
     public long getId() {
@@ -136,14 +141,6 @@ public class Profile {
         this.post = post;
     }
 
-    public Set<Interest> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(Set<Interest> interests) {
-        this.interests = interests;
-    }
-
     public String getBirthDate() {
         return birthDate;
     }
@@ -176,10 +173,6 @@ public class Profile {
         this.username = username;
     }
 
-    public void addInterest(Interest interest){
-        interests.add(interest);
-    }
-
     public void addPost(UserPost pos){
         post.add(pos);
     }
@@ -198,5 +191,107 @@ public class Profile {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getFreeTextOfInterests() {
+        return freeTextOfInterests;
+    }
+
+    public void setFreeTextOfInterests(String freeTextOfInterests) {
+        this.freeTextOfInterests = freeTextOfInterests;
+    }
+
+    public boolean isBusiness() {
+        return business;
+    }
+
+    public void setBusiness(boolean business) {
+        this.business = business;
+    }
+
+    public boolean isEntertainment() {
+        return entertainment;
+    }
+
+    public void setEntertainment(boolean entertainment) {
+        this.entertainment = entertainment;
+    }
+
+    public boolean isGeneral() {
+        return general;
+    }
+
+    public void setGeneral(boolean general) {
+        this.general = general;
+    }
+
+    public boolean isHealth() {
+        return health;
+    }
+
+    public void setHealth(boolean health) {
+        this.health = health;
+    }
+
+    public boolean isScience() {
+        return science;
+    }
+
+    public void setScience(boolean science) {
+        this.science = science;
+    }
+
+    public boolean isSports() {
+        return sports;
+    }
+
+    public void setSports(boolean sports) {
+        this.sports = sports;
+    }
+
+    public boolean isTechnology() {
+        return technology;
+    }
+
+    public void setTechnology(boolean technology) {
+        this.technology = technology;
+    }
+
+    public void setCategories(ArrayList<String> categories) {
+        this.categories = categories;
+    }
+
+    public ArrayList<String> getCategories() {
+        categories = new ArrayList<>();
+        if (business)
+            categories.add("Business");
+        if (entertainment)
+            categories.add("Entertainment");
+        if (general)
+            categories.add("General");
+        if(health)
+            categories.add("Health");
+        if(science)
+            categories.add("Science");
+        if(sports)
+            categories.add("Sports");
+        if (technology)
+            categories.add("Technology");
+        return categories;
+    }
+
+    public boolean hasNoInterests(){
+        if (freeTextOfInterests.replaceAll("\\p{Punct}", "").isEmpty()
+                && !business
+                && !entertainment
+                && !general
+                && !health
+                && !science
+                && !sports
+                && !technology) {
+            return true;
+        }
+
+        return false;
     }
 }

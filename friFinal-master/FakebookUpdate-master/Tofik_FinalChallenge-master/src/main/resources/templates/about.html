@@ -29,6 +29,17 @@
         <a th:href="@{/profile}" class="btn btn-primary">View Full Profile</a>
     </div>
 </div>
+</br></br>
+<div class="card mb-5">
+        <div class="card-header">Interests</div>
+        <div class="card-body"><p th:if = "${aboutprofile.freeTextOfInterests}" th:text="${aboutprofile.freeTextOfInterests}"></p>
+        </div>
+        <div class="d-flex mb-2">
+            <span class="ml-1 badge-pill badge-primary mr-1" th:each="category : ${aboutprofile.categories}" th:text="${category}"></span>
+        </div>
+</div>
+
+
 </body>
 <div th:replace="fragment :: js"></div>
 </html>

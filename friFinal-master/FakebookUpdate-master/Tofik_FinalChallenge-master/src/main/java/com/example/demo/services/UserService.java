@@ -64,10 +64,6 @@ public class UserService {
 
     //profiling stuff below this line
 
-    public Profile findProfile(Authentication authentication){
-        return profiles.findByProfileOwner_Username(authentication.getName());
-    }
-
     public void saveProfile(Profile profile, Authentication authentication){
         AppUser user = users.findByUsername(authentication.getName());
         profile.setProfileOwner(user);
@@ -84,5 +80,11 @@ public class UserService {
 
     public void sendEmail(SimpleMailMessage email){
         javaMailSender.send(email);
+    }
+    public Profile findProfile(Authentication authentication){
+        return profiles.findByProfileOwner_Username(authentication.getName());
+    }
+    public Profile findProfile(long id){
+        return profiles.findById(id).get();
     }
 }

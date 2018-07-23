@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -61,7 +62,7 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String home(Model model) {
+    public String home(Model model, Authentication auth) {
         model.addAttribute("newPost", new UserPost());
         model.addAttribute("posts", posts.findAllByFollowedTrueOrderByTimePostedDesc());
         return "index";
@@ -97,21 +98,25 @@ public class HomeController {
         return "index";
     }
     @RequestMapping("/headlines")
-    public String headlines(Model model) {
-        model.addAttribute("articles", news.articles());
+    public String headlines(Model model, Authentication authentication) {
+        try {
+            if (userService.findProfile(authentication).hasNoInterests()) {
+                model.addAttribute("articles", news.defaultArticles());
+                model.addAttribute("nointerests", true);
+            } else
+                model.addAttribute("articles", news.personalized(authentication));
+        } catch (Exception e) {
+            model.addAttribute("articles", news.defaultArticles());
+        }
+
         return "headlines";
     }
 
     @RequestMapping("/searchingnews")
     public String showNews(HttpServletRequest request, Model model) {
         String terms = request.getParameter("searchnews");
-        model.addAttribute("articles", news.articles(terms));
+        model.addAttribute("articles", news.articlesBySearch(terms));
         return "headlines";
-    }
-    @RequestMapping("/forecasts")
-    public String weatherForecasts(Model model) {
-        model.addAttribute("forecasts", weather.forecasts());
-        return "forecasts";
     }
 
     @RequestMapping("/profile")
@@ -135,7 +140,7 @@ public class HomeController {
         profile.setProfileOwner(user);
         profiles.save(profile);
 
-        if(fi.isEmpty() && profile.getProfilepicture().isEmpty()){
+        if(fi.isEmpty()){
             return "index";
         }
         try {
@@ -199,23 +204,47 @@ public class HomeController {
 
     @RequestMapping("/about")
     public String aboutProfile(Model model, Authentication auth){
-        Profile prf = profiles.findByProfileOwnerIs(users.findByUsername(auth.getName()));
+        Profile prf = null;
+        if(auth != null) {
+            prf = profiles.findByProfileOwnerIs(users.findByUsername(auth.getName()));
+        }
         model.addAttribute("aboutprofile", prf);
         return "about";
+    }
+
+    @RequestMapping("/forecasts")
+    public String weatherForecasts(Authentication authentication, Model model) {
+        if (authentication != null) {
+            AppUser thisUser = userService.findUser(authentication);
+            if (thisUser.hasProfile()) {
+                try {
+                    model.addAttribute("forecasts", weather.forecasts(userService.findProfile(authentication).getZipcode()));
+                    model.addAttribute("zipcode", userService.findProfile(authentication).getZipcode());
+                } catch (HttpClientErrorException e) {
+                    model.addAttribute("badcodeinprofile", true);
+                }
+            }
+        }
+        return "forecasts";
     }
 
     @RequestMapping("/forecastswithzipcode")
     public String weatherForecastsByZipCode(HttpServletRequest request, Model model) {
         String zipcode = request.getParameter("zipcode");
-        model.addAttribute("forecasts", weather.forecasts(zipcode));
-        model.addAttribute("zipcode", zipcode);
+        try {
+            model.addAttribute("forecasts", weather.forecasts(zipcode));
+            model.addAttribute("zipcode", zipcode);
+        } catch (HttpClientErrorException e) {
+            model.addAttribute("badzipentered", true);
+        }
         return "forecasts";
     }
 
     @RequestMapping("/searchposts")
-    public String searchForUsersFromPosts(HttpServletRequest request, Model model){
+    public String searchForUsersFromPosts(HttpServletRequest request, Model model) {
         String term = request.getParameter("search");
         model.addAttribute("posts", posts.findAllByTextContaining(term));
+        model.addAttribute("newPost", new UserPost());
         model.addAttribute("searchterm", term);
         return "index";
     }

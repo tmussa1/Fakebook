@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.auth.AppUser;
 import com.example.demo.model.auth.AppUserRepository;
 import com.example.demo.model.auth.UserRoleRepository;
+import com.example.demo.model.repositories.UserPostRepository;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 
 @Controller
@@ -19,6 +21,8 @@ public class ManagerController {
     AppUserRepository users;
     @Autowired
     UserRoleRepository roles;
+    @Autowired
+    UserPostRepository posts;
 
     @RequestMapping("/users")
     public String showUsers(Model model){
@@ -33,5 +37,12 @@ public class ManagerController {
         user.addRole(roles.findByRole("SUSPENDED"));
         users.save(user);
         return "redirect:/manage/users";
+    }
+
+    @RequestMapping("/deletepost")
+    public String deletePost(HttpServletRequest request){
+        long id = Long.parseLong(request.getParameter("id"));
+        posts.deleteById(id);
+        return "redirect:/";
     }
 }

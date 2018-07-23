@@ -26,12 +26,15 @@
                 <label for="text">Enter your Post:</label>
                 <input type="text" th:field="*{text}" class="form-control" placeholder="So what's good?">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group">
                 <label class="btn btn-default btn-file">Upload Picture <input type="file" name="file" class="form-control"></label>
             </div>
             <button class="btn btn-block" type="submit">Post</button>
         </form>
     </div>
+</br>
+    <div th:if="${searchterm}" class="text-success" th:text="${'You searched for ' + searchterm}"></div>
+</br>
     <div class="card">
         <div class="card-header">Timeline</div>
         <div class="card-body">
@@ -46,7 +49,10 @@
                     <img th:src="${post.image}" height="150" width="150"/>
                 </div>
                 <span class="card-body rounded bg-light">[[${post.text}]]</span>
-                <div class="card-footer"><small>by: [[${post.whoPosted.fullName}]], at: [[${post.timePosted}]]</small></div>
+                <div class="card-footer"><small>by: [[${post.whoPosted.fullName}]], at: [[${post.timePosted}]]</small>
+                    <span sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')" class="float-right"><a
+                            th:href="@{/manage/deletepost(id=${post.id})}"
+                            class="btn btn-sm btn-danger">Delete</a></span></div>
             </div>
         </div>
     </div>

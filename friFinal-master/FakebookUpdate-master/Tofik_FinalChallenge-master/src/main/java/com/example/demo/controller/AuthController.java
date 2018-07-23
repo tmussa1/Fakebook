@@ -101,7 +101,6 @@ public class AuthController {
     public String processconfirm(Model model, @RequestParam Map requestParams){
        AppUser user = userService.findByConfirmationco((String)requestParams.get("token"));
        user.setPassword((String) requestParams.get("password"));
-
            user.setEnabled(true);
            userService.saveMe(user);
        model.addAttribute("success", "Password set");

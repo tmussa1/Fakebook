@@ -118,6 +118,8 @@
             <button class="btn btn-block" type="submit">Submit</button>
         </form>
     </div>
+    <h6 class="text-danger" th:if="${badzipentered}">The Zip Code entered is incorrect! Try again!</h6>
+    <h6 class="text-danger" th:if="${badcodeinprofile}">The Zip Code in your profile doesn't exist, Change it!</h6>
     <h6 class="text-success" th:if="${zipcode}" th:inline="text">One week weather forecast in postal code: [[${zipcode}]]</h6>
     <div class="card mb-5" th:each="forecast : ${forecasts}" th:inline="text">
         <div class="card-header">[[${forecast.date}]]</div>

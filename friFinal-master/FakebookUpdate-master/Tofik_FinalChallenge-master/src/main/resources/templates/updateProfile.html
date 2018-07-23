@@ -40,11 +40,59 @@
         <label for="birthDate">Update Birth Date</label>
         <input type="text" class="form-control" th:field="*{birthDate}">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="form-group col-md-6">
+        <label for="interests">Interests</label>
+        <input type="text" class="form-control" th:field="*{freeTextOfInterests}"
+               placeholder="free text of your interests,">
+        <div class="row offset-1">
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" th:field="*{business}">
+                <label class="form-check-label" for="business">
+                    Business
+                </label>
+            </div>
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" th:field="*{entertainment}">
+                <label class="form-check-label" for="entertainment">
+                    Entertainment
+                </label>
+            </div>
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" th:field="*{general}">
+                <label class="form-check-label" for="general">
+                    General
+                </label>
+            </div>
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" th:field="*{health}">
+                <label class="form-check-label" for="health">
+                    Health
+                </label>
+            </div>
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" th:field="*{science}">
+                <label class="form-check-label" for="science">
+                    Science
+                </label>
+            </div>
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" th:field="*{sports}">
+                <label class="form-check-label" for="sports">
+                    Sports
+                </label>
+            </div>
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" th:field="*{technology}">
+                <label class="form-check-label" for="technology">
+                    Technology
+                </label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
 </form>
 </div>
 <div th:replace="fragment :: js"></div>
 </body>
 </html>
-<!--private String profilepicture;-->
-<!--private String coverpicture;-->
+

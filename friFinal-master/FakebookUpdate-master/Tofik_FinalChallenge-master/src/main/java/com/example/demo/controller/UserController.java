@@ -21,29 +21,7 @@ public class UserController {
     @RequestMapping("/")
     public String showProfile(Model model, Authentication authentication){
         AppUser thisUser = users.findUser(authentication);
-//        if (thisUser.hasProfile())
-            model.addAttribute("profile", users.findProfile(authentication));
-//        else
-//        {
-////            model.addAttribute("noProfile", true);
-////            model.addAttribute("profile", new Profile());
-//            return "profileform";
-//        }
+        model.addAttribute("profile", users.findProfile(authentication));
         return "profile";
-    }
-
-    @GetMapping("/form")
-    public String getProfile(Model model, Authentication authentication){
-        AppUser thisUser = users.findUser(authentication);
-//        if (!thisUser.hasProfile())
-//            model.addAttribute("profile", new Profile());
-//        else
-            model.addAttribute("profile", users.findProfile(authentication));
-        return "profileform";
-    }
-    @PostMapping("/form")
-    public String saveProfile(@ModelAttribute("profile") Profile profile, Authentication authentication){
-        users.saveProfile(profile, authentication);
-        return "redirect:/user/";
     }
 }
