@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <div th:replace="fragment :: css"></div>
+</head>
+<body>
+<nav th:replace="fragment :: navigation"></nav>
+<div class="container mt-5">
+    <div th:if="${invalid}" class="alert alert-danger" role="alert" th:text="${invalid}"></div>
+    <div th:if="${success}" class="alert alert-success"
+         role="alert" th:text=${success}></div>
+    <form th:if="!${invalid}" class="form-signin" th:action="@{/confirm}" th:object="${newUser}" method="post">
+        <input type="hidden" name="token" th:value="${newUser.confirmationcode}">
+        <h1 class="h3 mb-3 font-weight-normal">Confirmation page</h1>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" th:field="*{password}">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <p class="mt-5 mb-3 text-muted">© 2018-2019</p>
+    </form>
+</div>
+</body>
+<div th:replace="fragment :: js"></div>
+</html>

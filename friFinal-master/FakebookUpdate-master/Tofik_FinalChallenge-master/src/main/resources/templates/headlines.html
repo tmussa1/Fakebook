@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <script src="/js/jquery2.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <div th:replace="fragment :: css"></div>
+    <div th:replace="fragment :: javascripttop"></div>
+</head>
+<body>
+<div th:replace="fragment :: faceheadline"></div>
+<div class="container mt-5">
+    <a href="https://newsapi.org/" class="btn">Powered By NewsAPI.org</a>
+    <div class="row no-gutters justify-content-center">
+        <div class="card m-3 col-md-5" th:each="article : ${articles}" th:inline="text" style="width: 18rem;">
+            <img class="card-img-top" th:src="${article.image}" alt="article image">
+            <div class="card-body">
+                <h5 class="card-title">[[${article.title}]]</h5>
+                <p class="card-text">[[${article.description}]]</p>
+            </div>
+            <div class="card-footer d-flex bg-transparent">
+                <a th:href="${article.url}" class="btn btn-primary mr-auto align-self-end">Full article</a>
+                <span class="align-self-end">Author: [[${article.author != null? article.author : 'unknown'}]]</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="fragment :: js"></div>
+</html>

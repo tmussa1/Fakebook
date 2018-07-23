@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <link type="text/css" rel="stylesheet" href="/css/wheather.css" />
+    <script src="/js/jquery2.js"></script>
+    <div th:replace="fragment :: css"></div>
+    <div th:replace="fragment :: javascripttop"></div>
+</head>
+<body>
+<div class="wrapper">
+    <div class="sun"></div>
+    <div class="cloud">
+        <div class="cloud1">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="cloud1 c_shadow">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cloud_s">
+        <div class="cloud1">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="cloud1 c_shadow">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cloud_vs">
+        <div class="cloud1">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="cloud1 c_shadow">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div class="haze"></div>
+    <div class="haze_stripe"></div>
+    <div class="haze_stripe"></div>
+    <div class="haze_stripe"></div>
+    <div class="thunder"></div>
+    <div class="rain">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="sleet">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="text">
+        <ul>
+            <li>Mostly Sunny</li>
+            <li>Partly Sunny</li>
+            <li>Partly Cloudy</li>
+            <li>Mostly Cloudy</li>
+            <li>Cloudy</li>
+            <li>Hazy</li>
+            <li>Thunderstorm</li>
+            <li>Rain</li>
+            <li>Sleet</li>
+        </ul>
+    </div>
+</div>
+<div id="fabrizio"></div>
+<a href="http://fabrizio.co">fabrizio.co</a>
+<div th:replace="fragment :: faceheadline"></div>
+<div class="container mt-5">
+    <a href="https://www.apixu.com/" class="btn">Powered By APIXU.com</a>
+
+    <div class="mb-3">
+        <form th:action="@{/forecastswithzipcode}">
+            <div class="form-group">
+                <label for="zipcode">Enter a Zip Code:</label>
+                <input type="number" name="zipcode" class="form-control">
+            </div>
+            <button class="btn btn-block" type="submit">Submit</button>
+        </form>
+    </div>
+    <h6 class="text-success" th:if="${zipcode}" th:inline="text">One week weather forecast in postal code: [[${zipcode}]]</h6>
+    <div class="card mb-5" th:each="forecast : ${forecasts}" th:inline="text">
+        <div class="card-header">[[${forecast.date}]]</div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><img th:src="${forecast.stat.condition.icon}" alt="weather icon"> [[${forecast.stat.condition.text}]]</li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-start">
+                    <div class="w-25"><span>Sunrise: [[${forecast.astro.sunrise}]]</span><br><span>Sunset: [[${forecast.astro.sunset}]]</span></div>
+                    <div class="w-25"><span>Moonrise: [[${forecast.astro.moonrise}]]</span><br><span>Moonset: [[${forecast.astro.moonset}]]</span></div>
+                    <div class=""><span>Max Temp: [[${forecast.stat.maxtemp_c}]] celsius</span><br><span>Min Temp: [[${forecast.stat.mintemp_c}]] celsius</span></div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-start">
+                    <div class="w-25"><span>Temp: [[${forecast.stat.avgtemp_c}]] celsius</span><br><span>Precip: [[${forecast.stat.totalprecip_in}]] inches</span></div>
+                    <div class="w-25"><span>Max Wind: [[${forecast.stat.maxwind_mph}]] mph</span><br><span>Visibility: [[${forecast.stat.avgvis_miles}]] miles</span></div>
+                    <div class=""><span>Humidity: [[${forecast.stat.avghumidity}]]</span><br><span>UV index: [[${forecast.stat.uv}]]</span></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="sunny"></div>
+    <div class="cloudy"></div>
+    <div class="rainy"></div>
+    <div class="snowy"></div>
+    <div class="rainbow"></div>
+    <div class="starry"></div>
+    <div class="stormy"></div>
+</div>
+</body>
+<div th:replace="fragment :: js"></div>
+</html>

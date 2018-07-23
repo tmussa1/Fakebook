@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <script src="/js/jquery2.js"></script>
+    <div th:replace="fragment :: css"></div>
+    <div th:replace="fragment :: javascripttop"></div>
+</head>
+<body>
+<div th:replace="fragment :: faceheadline"></div>
+</br></br></br>
+<div class="container">
+    <div th:each="friend: ${friends}">
+        <div th:if="${friend.picture}">
+            <img th:src="${friend.picture}"/>
+        </div>
+        <div th:unless="${friend.picture}">
+            <img src="/img/profile.png" height="30"/>
+        </div>
+        <h3 th:text="${friend.fullName}"></h3>
+        <h3><a th:href="@{/unfollow/{id}(id = ${friend.id})}">Unfollow</a></h3>
+    </div>
+</div>
+
+</body>
+<div th:replace="fragment :: js"></div>
+</html>

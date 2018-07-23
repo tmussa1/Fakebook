@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <script src="/js/jquery2.js"></script>
+    <div th:replace="fragment :: css"></div>
+    <div th:replace="fragment :: javascripttop"></div>
+</head>
+<body>
+<div th:replace="fragment :: faceheadline"></div>
+</br></br></br>
+<div class="card" style="width: 18rem;">
+        <div th:unless="${aboutprofile.profilepicture}">
+        <img class="card-img-top" src="/img/dummyprofile.jpg" alt="Card image cap">
+        </div>
+        <div th:if="${aboutprofile.profilepicture}">
+            <img class="card-img-top" th:src="${aboutprofile.profilepicture}" alt="Card image cap"/>
+        </div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text" th:text="${aboutprofile.fullName}"></p>
+        <p class="card-text" th:text="${aboutprofile.bio}"></p>
+        <p class="card-text" th:text="${aboutprofile.birthDate}"></p>
+        <p class="card-text" th:text="${aboutprofile.email}"></p>
+        <a th:href="@{/profile}" class="btn btn-primary">View Full Profile</a>
+    </div>
+</div>
+</body>
+<div th:replace="fragment :: js"></div>
+</html>

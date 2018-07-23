@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <script src="/js/jquery2.js"></script>
+    <div th:replace="fragment :: css"></div>
+    <div th:replace="fragment :: javascripttop"></div>
+</head>
+<body>
+<div th:replace="fragment :: faceheadline"></div>
+</br></br></br>
+<div class="container">
+<form th:action="@{/updateprofile}" th:object="${profile}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group col-md-6">
+        <label for="bio">Update Bio</label>
+        <input type="text" class="form-control" th:field="*{bio}">
+    </div>
+    <div class="form-group col-md-6">
+        <label class="btn btn-default btn-file">Change Profile Picture <input type="file" name="file" class="form-control"></label>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="fullName">Update Full Name</label>
+        <input type="text" class="form-control" th:field="*{fullName}">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="email">Update Email</label>
+        <input type="email" class="form-control" th:field="*{email}">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="phone">Update Phone Number</label>
+        <input type="text" class="form-control" th:field="*{phone}">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="birthDate">Update Birth Date</label>
+        <input type="text" class="form-control" th:field="*{birthDate}">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+<div th:replace="fragment :: js"></div>
+</body>
+</html>
+<!--private String profilepicture;-->
+<!--private String coverpicture;-->

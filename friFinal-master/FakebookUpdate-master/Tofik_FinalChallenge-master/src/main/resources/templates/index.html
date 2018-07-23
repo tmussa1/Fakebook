@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <script src="/js/jquery2.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <div th:replace="fragment :: css"></div>
+    <div th:replace="fragment :: javascripttop"></div>
+</head>
+<body>
+<div sec:authorize="isAnonymous()">
+<nav th:replace="fragment :: navigation"></nav>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <div th:replace="fragment :: faceheadline"></div>
+</div>
+</br></br>
+<div class="container mt-5">
+    <div sec:authorize="isAuthenticated()" class="mb-3">
+        <form th:action="@{/posting}" th:object="${newPost}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group col-md-6">
+                <label for="text">Enter your Post:</label>
+                <input type="text" th:field="*{text}" class="form-control" placeholder="So what's good?">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="btn btn-default btn-file">Upload Picture <input type="file" name="file" class="form-control"></label>
+            </div>
+            <button class="btn btn-block" type="submit">Post</button>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-header">Timeline</div>
+        <div class="card-body">
+            <div th:each="post : ${posts}" class="mb-3" th:inline="text">
+                <div th:unless="${post.whoPosted.profilepicture}">
+                    <img class="rounded-circle" src="/img/dummyprofile.jpg" height="75" width="75"/>
+                </div>
+                <div th:if="${post.whoPosted.profilepicture}">
+                    <img class="rounded-circle" th:src="${post.whoPosted.profilepicture}" height="75" width="75"/>
+                </div>
+                <div th:if="${post.image}">
+                    <img th:src="${post.image}" height="150" width="150"/>
+                </div>
+                <span class="card-body rounded bg-light">[[${post.text}]]</span>
+                <div class="card-footer"><small>by: [[${post.whoPosted.fullName}]], at: [[${post.timePosted}]]</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="fragment :: js"></div>
+</html>

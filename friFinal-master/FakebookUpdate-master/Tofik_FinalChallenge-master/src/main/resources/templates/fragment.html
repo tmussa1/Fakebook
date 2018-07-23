@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title>$Title$</title>
+    <div th:fragment="css">
+        <link href="https://fonts.googleapis.com/css?family=Quantico:700" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    </div>
+    <div th:fragment="javascripttop">
+        <script>$(document).ready(function(){
+            $(".box13").click(function(){
+                $(".box13").css('background-color','black');
+                $(".box11").css('background-color','black');
+                $(".box12").css('background-color','black');
+                $(".box14").css('background-color','black');
+                $(".frnpad").fadeIn("slow");
+                $(".frnpadx").fadeIn("slow");
+                $(".aboutpad").fadeOut("slow");
+                $(".aboutpadx").fadeOut("slow");
+                $(".phpad").fadeOut("slow");
+                $(".phpadx").fadeOut("slow");
+                $(".postp").fadeOut("slow");
+                $(".postpx").fadeOut("slow");
+                $(".post1p").fadeOut("slow");
+                $(".post1px").fadeOut("slow");
+                $(".abox1").fadeOut("slow");
+                $(".abox1x").fadeOut("slow");
+                $(".abox2").fadeOut("slow");
+                $(".abox2x").fadeOut("slow");
+                $(".abox3").fadeOut("slow");
+                $(".abox3x").fadeOut("slow");
+            });
+            $(".box14").click(function(){
+                $(".box14").css('background-color','black');
+                $(".box11").css('background-color','black');
+                $(".box12").css('background-color','black');
+                $(".box13").css('background-color','black');
+                $(".phpad").fadeIn("slow");
+                $(".phpadx").fadeIn("slow");
+                $(".aboutpad").fadeOut("slow");
+                $(".aboutpadx").fadeOut("slow");
+                $(".frnpad").fadeOut("slow");
+                $(".frnpadx").fadeOut("slow");
+                $(".postp").fadeOut("slow");
+                $(".postpx").fadeOut("slow");
+                $(".post1p").fadeOut("slow");
+                $(".post1px").fadeOut("slow");
+                $(".abox1").fadeOut("slow");
+                $(".abox1x").fadeOut("slow");
+                $(".abox2").fadeOut("slow");
+                $(".abox2x").fadeOut("slow");
+                $(".abox3").fadeOut("slow");
+                $(".abox3x").fadeOut("slow");
+            });
+            $(".box12").click(function(){
+                $(".box12").css('background-color','black');
+                $(".box11").css('background-color','black');
+                $(".box13").css('background-color','black');
+                $(".box14").css('background-color','black');
+                $(".aboutpad").fadeIn("slow");
+                $(".aboutpadx").fadeIn("slow");
+                $(".frnpad").fadeOut("slow");
+                $(".frnpadx").fadeOut("slow");
+                $(".phpad").fadeOut("slow");
+                $(".phpadx").fadeOut("slow");
+                $(".postp").fadeOut("slow");
+                $(".postpx").fadeOut("slow");
+                $(".post1p").fadeOut("slow");
+                $(".post1px").fadeOut("slow");
+                $(".abox1").fadeOut("slow");
+                $(".abox1x").fadeOut("slow");
+                $(".abox2").fadeOut("slow");
+                $(".abox2x").fadeOut("slow");
+                $(".abox3").fadeOut("slow");
+                $(".abox3x").fadeOut("slow");
+            });
+            $(".box11").click(function(){
+                $(".box11").css('background-color','black');
+                $(".box12").css('background-color','black');
+                $(".box13").css('background-color','black');
+                $(".box14").css('background-color','black');
+                $(".aboutpad").fadeOut("slow");
+                $(".aboutpadx").fadeOut("slow");
+                $(".postp").fadeIn("slow");
+                $(".postpx").fadeIn("slow");
+                $(".post1p").fadeIn("slow");
+                $(".post1px").fadeIn("slow");
+                $(".abox1").fadeIn("slow");
+                $(".abox1x").fadeIn("slow");
+                $(".abox2").fadeIn("slow");
+                $(".abox2x").fadeIn("slow");
+                $(".abox3").fadeIn("slow");
+                $(".abox3x").fadeIn("slow");
+                $(".frnpad").fadeOut("slow");
+                $(".frnpadx").fadeOut("slow");
+                $(".phpad").fadeOut("slow");
+                $(".phpadx").fadeOut("slow");
+
+            });
+            $(".box13").click(function(){})
+            $(".box11").click(function(){})
+            $(".box12").click(function(){})
+            $(".box14").click(function(){})
+        });
+        </script>
+    </div>
+</head>
+<body>
+<nav th:fragment="navigation">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" th:href="@{/}"><img src="/img/logo2.png"height="30" width="50"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}"><p10>Fakebook</p10></a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/profile}"><i class="material-icons" style="font-size:48px;">person</i></a>
+                </li>
+            </ul>
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/forecasts}"><img src="/img/temperature.png"height="30" width="50"/></a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/headlines}"><img src="/img/headline.png"height="30" width="50"/></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/login}">Log In</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/manage/users}">Administerator</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/register}">Sign Up</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/logout}"><img src="/img/lo.png"height="30" width="50"/></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</nav>
+<div th:fragment="faceheadline">
+    <div class="header1">
+        <div id="img3" class="header1"><a th:href="@{/}"><img src="/img/logo2.png" id="img3"/></a></div>
+        <div id="searcharea" class="header1">
+            <form th:action="@{/searchposts}">
+                <input  type="text" name="search" id="searchbox" placeholder="Search all user's posts">
+            </form>
+        </div>
+        <div id="profilearea" class="header1"><a th:href="@{/profile}"><i class="material-icons" style="font-size:48px;">person</i></a></div>
+        <div id="profilearea1" class="header1">
+            <a th:href="@{/profile}">Profile</a>
+        </div>
+        <div id="profilearea3" class="header1">|</div>
+        <div id="profilearea4" class="header1">
+            <a th:href="@{/}">Post</a>
+        </div>
+        <div id="findf" class="header1">
+            <a th:href="@{/listfriends}"><img src="/img/frn.png"height="30"/></a>
+        </div>
+        <div id="message" class="header1">
+            <a th:href="@{/forecasts}"><img src="/img/temperature.png"height="30" width="30"/></a>
+        </div>
+        <div id="notification" class="header1">
+            <a th:href="@{/headlines}"><img src="/img/headline.png"height="30"/></div>
+        <div id="profilearea2" class="header1">|</div>
+        <div  id="setting" class="header1">
+            <a th:href="@{/updateprofile}"><img src="/img/set.png"height="30"/></a>
+        </div>
+        <div id="logout" class="header1">
+            <a th:href="@{/logout}"><img src="/img/lo.png"height="30"/></a>
+        </div>
+    </div>
+</div>
+</body>
+<div th:fragment="js">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+</div>
+</html>
